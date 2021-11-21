@@ -15,12 +15,23 @@
                     <div class="text-sm font-bold">Category name:</div>
                     <div class="text-xs m-0.5 inline-block	">submitted by: <p class="text-blue-700 inline-block	"><a href={{ route('user.show', ['user'=>$post->user->id]) }}>{{  $post->user->name}}</a></p> submitted when: {{ $post->created_at->diffForHumans()}}</div>
                 </div>
+                <div id="editor">
+                    <p>This is the editor content.</p>
+                </div>
                     <div class="text-base ">Post Title: {{  $post->title}}</div>
-                    <div>Post body: {{  $post->body}}</div>
+                    <div>Post body: {{ $post->body}}</div>
+                    <img src="{{asset($post->getFirstMediaUrl('images'))}}" alt="Italian Trulli">
                     <div class=" text-purple-600">
                         <div class="inline-block ">Comments</div>
                         <div class="inline-block">Award</div>
                         <div class="inline-block">Share</div>
+                        <div class="inline-block">
+                            <form method="post" action="{{route('userPostSave.save')}}">
+                                @csrf
+                                Save
+                            </form>
+                        </div>
+
                     </div>
                 @include('Post.commentsDisplay', ['comments' => $post->comments, 'post_id' => $post->id])
                 @auth
@@ -47,7 +58,6 @@
 
         </div>
     </div>
-</div></div></div></div>
 
     <div class="inline-block mt-10 " style="width: 250px; ">
         <div class="-my-8">
@@ -62,3 +72,7 @@
 
 
 </x-guest-layout>
+<script  type="text/javascript" src="./node_modules/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'editor' );
+</script>

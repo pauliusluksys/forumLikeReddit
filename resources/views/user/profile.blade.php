@@ -18,7 +18,7 @@
                 <div>
                     <div class="flex">
                         <div class="text-sm font-bold">Category name:</div>
-                        <div class="text-xs m-0.5 inline-block	">submitted by: <p class="text-blue-700 inline-block	">{{  $post->user->name}}</p> submitted when: {{ $post->created_at->diffForHumans();}}</div>
+                        <div class="text-xs m-0.5 inline-block	">submitted by: <p class="text-blue-700 inline-block	">{{  $post->user->name}}</p> submitted when: {{ $post->created_at->diffForHumans()}}</div>
                     </div>
                     <a href={{ route('post.show', ['post'=>$post->id]) }}>
                         <div class="text-base ">Post Title: {{  $post->title}}</div>
@@ -32,6 +32,8 @@
                     </div>
                 </div>
             </div>
+
+
     @endforeach
 
     {!! $posts->links() !!}
@@ -40,10 +42,25 @@
     @if (count($posts) === 0)
         Nothing to see here!
         @endif
+    <div class="container">
+        <h1>How to Get Current User Location with Laravel - ItSolutionStuff.com</h1>
+        <div class="card">
+            <div class="card-body">
+                @if($currentUserInfo)
+                    <h4>IP: {{ $currentUserInfo->ip }}</h4>
+                    <h4>Country Name: {{ $currentUserInfo->countryName }}</h4>
+                    <h4>Country Code: {{ $currentUserInfo->countryCode }}</h4>
+                    <h4>Region Code: {{ $currentUserInfo->regionCode }}</h4>
+                    <h4>Region Name: {{ $currentUserInfo->regionName }}</h4>
+                    <h4>City Name: {{ $currentUserInfo->cityName }}</h4>
+                    <h4>Zip Code: {{ $currentUserInfo->zipCode }}</h4>
+                    <h4>Latitude: {{ $currentUserInfo->latitude }}</h4>
+                    <h4>Longitude: {{ $currentUserInfo->longitude }}</h4>
+                @endif
+            </div>
+        </div>
     </div>
-        </div>
 
-        </div>
         <div class="inline-block mt-10 " style="width: 250px; ">
             <div class="-my-8">
                 <div class="border-gray-300 border-2 p-2 my-8" style="height: 50px;">User: {{$user->name}}</div>
@@ -51,8 +68,6 @@
                 <div class="border-gray-300 border-2 p-2 my-8" style="height: 50px;">Home</div>
             </div>
         </div>
-        </div>
         <div class="flex-1"></div>
-        </div>
 
 </x-guest-layout>

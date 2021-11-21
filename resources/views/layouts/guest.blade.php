@@ -52,18 +52,10 @@
                     </div>
                 </div>
             @endif
-                <div class="flex mt-6">
-                    <div class="flex-1"></div>
-                    <div class="py-2 flex-none mx-auto inline-block flex content-start sm:px-6 lg:px-8" style="width: 1000px;">
-                        <div class="  inline-block" style="width:750px;">
-                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                                <div class="p-6 bg-white border-b border-gray-200 ">
+
+
                                     {{ $slot }}
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
+
     </body>
 </html>

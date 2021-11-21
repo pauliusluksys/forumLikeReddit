@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Community;
 use App\Models\Post;
 use App\Models\PostComment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -21,10 +22,16 @@ class PostController extends Controller
 
         $posts = Post::paginate(15);
         $communities = Community::take(10)->get();
-
-        return view('Post.index', ['communities' => $communities,'posts' => $posts]);
+        $userId = Auth::id();
+        $savedPosts = User::find($userId)->savedPosts()->pluck('id')->toArray();
+//        dd($savedPosts);
+        return view('Post.index', ['communities' => $communities,'posts' => $posts,'savedPosts' => $savedPosts]);
     }
     public function show(Post $post){
+//        $mediaItems = $post->getMedia('images');
+//        $publicUrl = $mediaItems[0]->getUrl();
+
+        //dd($post->getFirstMediaUrl('images'));
         return view('Post.show', ['post' => $post]);
 
     }
@@ -34,12 +41,33 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function create(Community $community)
+    {
+        return view('Post.create',['community' => $community]);
+    }
     public function store(Request $request)
     {
-        dd('it works');
-//        Post::create($request->all());
-//        return redirect()->back();
-    }
+        $content = $request->input('summary-ckeditor');
+//        dd($content);
+
+            $body_content = trim($content);
+            $body_content = stripslashes($body_content);
+            $body_content = htmlspecialchars($body_content);
+            return $body_content;
+        }
+//        $post = New Post;
+//        $post->title = $request->title;
+//        $post->slug = \Str::slug($request->title);
+//        $post->body = $request->body;
+//        $post->is_draft = 0;
+//        $post->community_id = 3;
+//        $post->user_id = 1;
+//        $post->save();
+//        if($request->hasFile('image') && $request->file('image')->isValid()){
+//            $post->addMediaFromRequest('image')->toMediaCollection('images');
+//        }
+//        return redirect()->route('user.show',['user' => Auth::id()])->with('success', 'New Gift Added !');
+//    }
 
 
     /**

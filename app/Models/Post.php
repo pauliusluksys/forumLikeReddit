@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Conner\Likeable\Likeable;
-class Post extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+class Post extends Model implements HasMedia
 {
-    use HasFactory,SoftDeletes,Likeable;
+    use HasFactory,SoftDeletes,Likeable,InteractsWithMedia;
     protected $dates = ['deleted_at'];
 
     protected $fillable=[
@@ -19,6 +21,10 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function savedByUser()
+    {
+        return $this->belongsToMany(User::class,'user_saved_post');
     }
     public function comments()
     {

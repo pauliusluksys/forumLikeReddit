@@ -16,7 +16,9 @@
         "protonemedia/inertiajs-tables-laravel-query-builder": "^1.2",
         "pusher/pusher-php-server": "^7.0",
         "rtconner/laravel-likeable": "^3.2",
+        "spatie/laravel-medialibrary": "^9.6.0",
         "spatie/laravel-query-builder": "^4.0",
+        "stevebauman/location": "^6.2",
         "tightenco/ziggy": "^1.4"
     },
     "require-dev": {

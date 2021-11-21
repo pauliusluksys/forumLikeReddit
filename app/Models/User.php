@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\UserSavePostController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +61,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function communities()
     {
         return $this->belongsToMany(Community::class,'community_member','user_id','community_id');
+    }
+    public function savedPosts()
+    {
+        return $this->belongsToMany(Post::class,'saved_user_post')->withTimestamps();
+    }
+    public function karma(){
+        return $this->hasOne(Karma::class);
     }
 }

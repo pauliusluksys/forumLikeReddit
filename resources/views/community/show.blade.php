@@ -8,7 +8,7 @@
 
     <div class=" flex -px-2 mt-4 p-2 border-gray-300 border-2 border-opacity-75 rounded-sm">
 
-        <div class="mx-4">Create new post:</div>
+        <div class="mx-4"><a href="#">Create new post:</a></div>
     </div>
 
     <div class=" flex -px-2 mt-4 p-2 border-gray-300 border-2 border-opacity-75 rounded-sm">

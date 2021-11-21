@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserDataController;
+use App\Http\Controllers\UserSavePostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +23,8 @@ use Laravel\Socialite\Facades\Socialite;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/user_save_post/detach',[UserSavePostController::class,'detach'])->name('userSavePost.detach');
+Route::post('/user_save_post/attach',[UserSavePostController::class,'store'])->name('userSavePost.attach');
 route::post('/community_member',[CommunityMember::class,'store'])->name('communityMember.destroy');
 route::delete('/community_member',[CommunityMember::class,'delete'])->name('communityMember.store');
 route::get('communities',[CommunityController::class,'index'])->name('community.index');
@@ -35,10 +38,17 @@ Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallbac
 Route::get('auth/github', [LoginController::class, 'redirectToGithub'])->name('login.github');
 Route::get('/auth/github/callback', [LoginController::class, 'handleGithubCallback']);
 
+
+Route::get('/test/new-user',[TestController::class,'create'])->name('new-user');
+
+
+Route::get('/',[\App\Http\Controllers\PostController::class,'index'])->name('post.index');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
+Route::get('/community/{community}/post/new', [PostController::class, 'create'])->name('post.create');
+Route::post('/community/post/new', [PostController::class, 'store'])->name('post.store');
+Route::post('/post-comment/store', [PostCommentController::class, 'store'])->name('post-comment.add');
 Route::post('/post/like',[PostController::class,'postLike'])->middleware('auth')->name('post.like');
 Route::post('/post/unlike',[PostController::class,'postUnlike'])->middleware('auth')->name('post.unlike');
-Route::get('/test/new-user',[TestController::class,'create'])->name('new-user');
-Route::get('/',[\App\Http\Controllers\PostController::class,'index'])->name('post.index');
 
 Route::get('/about-us', function () {
     return Inertia::render('About', ['about_us' => 'working']);
@@ -50,9 +60,13 @@ Route::get('/dashboard', function () {
 //    return Inertia::render('Dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/users/{user}', [UserDataController::class, 'show'])->name('user.show');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
-Route::post('/post-comment/store', [PostCommentController::class, 'store'])->name('post-comment.add');
 
+
+Route::get('/test/script/javascript',function(){
+    return view('/test/script/javascript');
+
+
+});
 
 Route::get('/test',[TestController::class,'index'])->name('test.index');
 Route::get('/table',[TableController::class,'index'])->name('table.index');
