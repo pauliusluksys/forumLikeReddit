@@ -19,12 +19,12 @@ use Laravel\Socialite\Facades\Socialite;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| routes are loaded by the RouteServicefvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
 Route::post('/user_save_post/detach',[UserSavePostController::class,'detach'])->name('userSavePost.detach');
-Route::post('/user_save_post/attach',[UserSavePostController::class,'store'])->name('userSavePost.attach');
+Route::post('/user_save_post/attach',[UserSavePostController::class,'attach'])->name('userSavePost.attach');
 route::post('/community_member',[CommunityMember::class,'store'])->name('communityMember.destroy');
 route::delete('/community_member',[CommunityMember::class,'delete'])->name('communityMember.store');
 route::get('communities',[CommunityController::class,'index'])->name('community.index');
@@ -60,7 +60,7 @@ Route::get('/dashboard', function () {
 //    return Inertia::render('Dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/users/{user}', [UserDataController::class, 'show'])->name('user.show');
-
+Route::get('/users/{user}', [UserDataController::class, 'show'])->name('user.');
 
 Route::get('/test/script/javascript',function(){
     return view('/test/script/javascript');

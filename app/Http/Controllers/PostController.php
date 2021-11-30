@@ -22,10 +22,16 @@ class PostController extends Controller
 
         $posts = Post::paginate(15);
         $communities = Community::take(10)->get();
+
         $userId = Auth::id();
+        if($userId !== null){
         $savedPosts = User::find($userId)->savedPosts()->pluck('id')->toArray();
 //        dd($savedPosts);
         return view('Post.index', ['communities' => $communities,'posts' => $posts,'savedPosts' => $savedPosts]);
+        }
+        else{
+            return view('Post.index', ['communities' => $communities,'posts' => $posts,'savedPosts' => []]);
+        }
     }
     public function show(Post $post){
 //        $mediaItems = $post->getMedia('images');
